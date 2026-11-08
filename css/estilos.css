@@ -93,3 +93,25 @@ footer {
   font-size: 0.9rem;
   border-top: 1px solid #e2e8f0;
 }
+<!-- Galería de imágenes -->
+    <section class="card" style="margin-top: 2rem;">
+      <h2>Galería de la Villa</h2>
+      <div class="galeria-grid">
+        
+        <div class="foto-card">
+          <img src="img/piscina.jpg" alt="Piscina privada con vistas al Montgó en Rincón Maretta">
+          <p>Piscina Privada & Vistas</p>
+        </div>
+
+        <div class="foto-card">
+          <img src="img/jardin.jpg" alt="Jardín amplio en Rincón Maretta Jávea">
+          <p>Jardín y Terrazas</p>
+        </div>
+
+        <div class="foto-card">
+          <img src="img/habitacion-principal.jpg" alt="Dormitorio principal con baño en suite">
+          <p>Dormitorio Principal</p>
+        </div>
+
+      </div>
+    </section>
