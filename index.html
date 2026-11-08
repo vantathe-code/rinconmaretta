@@ -49,55 +49,114 @@
       <h2>Entorno y Ubicación</h2>
       <p>Disfruta de la máxima tranquilidad en plena naturaleza, lejos de cualquier ruido molesto y con el imponente Montgó de fondo. A tan solo <strong>2 km del centro histórico de Jávea</strong>, combinando serenidad y cercanía a todos los servicios y playas.</p>
     </section>
-    <!-- Galería de imágenes -->
+
+    <!-- Galería filtrable por secciones -->
     <section class="card" style="margin-top: 2rem;">
-      <h2>Galería de la Villa</h2>
-      <div class="galeria-grid">
-        
-        <div class="foto-card">
-          <img src="img/piscina.jpg" alt="Piscina privada con vistas al Montgó en Rincón Maretta">
-          <p>Piscina Privada & Vistas</p>
+      <h2>Explora Rincón Maretta</h2>
+
+      <!-- Botones de categoría -->
+      <div class="filtros-galeria">
+        <button class="btn-filtro activo" onclick="filtrarGaleria('todas', this)">Todas</button>
+        <button class="btn-filtro" onclick="filtrarGaleria('exterior', this)">Exterior, piscina y vistas</button>
+        <button class="btn-filtro" onclick="filtrarGaleria('salon', this)">Salón-Comedor</button>
+        <button class="btn-filtro" onclick="filtrarGaleria('habitaciones', this)">Habitaciones</button>
+        <button class="btn-filtro" onclick="filtrarGaleria('cocina', this)">Cocina</button>
+        <button class="btn-filtro" onclick="filtrarGaleria('atardecer', this)">El Atardecer</button>
+      </div>
+
+      <!-- Cuadrícula de fotos organizadas por carpetas -->
+      <div class="galeria-grid" id="galeria">
+
+        <!-- Exterior -->
+        <div class="foto-item exterior" onclick="abrirVisor(this)">
+          <img src="img/exterior/piscina.jpg" alt="Piscina y vistas al Montgó">
+          <div class="foto-caption">Piscina y Vistas al Montgó</div>
         </div>
 
-        <div class="foto-card">
-          <img src="img/jardin.jpg" alt="Jardín amplio en Rincón Maretta Jávea">
-          <p>Jardín y Terrazas</p>
+        <!-- Salón -->
+        <div class="foto-item salon" onclick="abrirVisor(this)">
+          <img src="img/salon/salon.jpg" alt="Salón comedor espacioso">
+          <div class="foto-caption">Salón Comedor</div>
         </div>
 
-        <div class="foto-card">
-          <img src="img/habitacion-principal.jpg" alt="Dormitorio principal con baño en suite">
-          <p>Dormitorio Principal</p>
+        <!-- Habitaciones -->
+        <div class="foto-item habitaciones" onclick="abrirVisor(this)">
+          <img src="img/habitaciones/habitacion-principal.jpg" alt="Dormitorio principal">
+          <div class="foto-caption">Dormitorio Principal (En Suite)</div>
+        </div>
+
+        <!-- Cocina -->
+        <div class="foto-item cocina" onclick="abrirVisor(this)">
+          <img src="img/cocina/cocina.jpg" alt="Cocina totalmente equipada">
+          <div class="foto-caption">Cocina Completa</div>
+        </div>
+
+        <!-- Atardecer -->
+        <div class="foto-item atardecer" onclick="abrirVisor(this)">
+          <img src="img/atardecer/atardecer-montgo.jpg" alt="Atardecer sobre el Montgó">
+          <div class="foto-caption">Atardecer sobre el Montgó</div>
         </div>
 
       </div>
     </section>
+
   </main>
-  <!-- Galería de imágenes -->
-    <section class="card" style="margin-top: 2rem;">
-      <h2>Galería de la Villa</h2>
-      <div class="galeria-grid">
-        
-        <div class="foto-card">
-          <img src="img/piscina.jpg" alt="Piscina privada con vistas al Montgó en Rincón Maretta">
-          <p>Piscina Privada & Vistas</p>
-        </div>
 
-        <div class="foto-card">
-          <img src="img/jardin.jpg" alt="Jardín amplio en Rincón Maretta Jávea">
-          <p>Jardín y Terrazas</p>
-        </div>
-
-        <div class="foto-card">
-          <img src="img/habitacion-principal.jpg" alt="Dormitorio principal con baño en suite">
-          <p>Dormitorio Principal</p>
-        </div>
-
-      </div>
-    </section>
+  <!-- Visor a pantalla completa (Lightbox) -->
+  <div class="lightbox" id="visor">
+    <button class="lightbox-btn lb-close" onclick="cerrarVisor()">×</button>
+    <button class="lightbox-btn lb-prev" onclick="cambiarFoto(-1)">❮</button>
+    <img class="lightbox-img" id="imgVisor" src="" alt="">
+    <div class="lightbox-caption" id="captionVisor"></div>
+    <button class="lightbox-btn lb-next" onclick="cambiarFoto(1)">❯</button>
+  </div>
 
   <footer>
-    <p>&copy; 2026 Rincón Maretta · Jávea, Alicante (España). Todos los derechos reservados.</p>
+    <p>© 2026 Rincón Maretta · Jávea, Alicante (España). Todos los derechos reservados.</p>
   </footer>
+
+  <script>
+    function filtrarGaleria(categoria, elemento) {
+      document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('activo'));
+      elemento.classList.add('activo');
+
+      const fotos = document.querySelectorAll('.foto-item');
+      fotos.forEach(foto => {
+        if (categoria === 'todas' || foto.classList.contains(categoria)) {
+          foto.style.display = 'block';
+        } else {
+          foto.style.display = 'none';
+        }
+      });
+    }
+
+    let fotosVisibles = [];
+    let indiceActual = 0;
+
+    function abrirVisor(elemento) {
+      fotosVisibles = Array.from(document.querySelectorAll('.foto-item')).filter(f => f.style.display !== 'none');
+      indiceActual = fotosVisibles.indexOf(elemento);
+      actualizarVisor();
+      document.getElementById('visor').classList.add('activo');
+    }
+
+    function cerrarVisor() {
+      document.getElementById('visor').classList.remove('activo');
+    }
+
+    function cambiarFoto(direccion) {
+      indiceActual = (indiceActual + direccion + fotosVisibles.length) % fotosVisibles.length;
+      actualizarVisor();
+    }
+
+    function actualizarVisor() {
+      const foto = fotosVisibles[indiceActual];
+      const img = foto.querySelector('img');
+      const caption = foto.querySelector('.foto-caption').innerText;
+      document.getElementById('imgVisor').src = img.src;
+      document.getElementById('captionVisor').innerText = caption;
+    }
+  </script>
 
 </body>
 </html>

@@ -39,7 +39,7 @@ main {
   padding: 0 1.5rem;
 }
 
-/* Grid de secciones */
+/* Grid de secciones de información */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -85,6 +85,115 @@ main {
   border-left: 4px solid #0284c7;
 }
 
+/* Botones de filtro por categoría */
+.filtros-galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.btn-filtro {
+  background-color: #e2e8f0;
+  color: #334155;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-filtro:hover, .btn-filtro.activo {
+  background-color: #0284c7;
+  color: white;
+}
+
+/* Cuadrícula de fotos filtrable */
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.foto-item {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.foto-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.foto-item:hover img {
+  transform: scale(1.05);
+}
+
+.foto-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  color: white;
+  padding: 0.8rem 0.5rem 0.5rem 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Visor a pantalla completa (Lightbox) */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lightbox.activo {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+
+.lightbox-caption {
+  color: white;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.lightbox-btn {
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  user-select: none;
+}
+
+.lightbox-btn:hover { background: rgba(255,255,255,0.4); }
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }
+.lb-close { top: 20px; right: 25px; font-size: 2.5rem; background: none; }
+
 /* Pie de página */
 footer {
   text-align: center;
@@ -92,54 +201,4 @@ footer {
   color: #94a3b8;
   font-size: 0.9rem;
   border-top: 1px solid #e2e8f0;
-}
-<!-- Galería de imágenes -->
-    <section class="card" style="margin-top: 2rem;">
-      <h2>Galería de la Villa</h2>
-      <div class="galeria-grid">
-        
-        <div class="foto-card">
-          <img src="img/piscina.jpg" alt="Piscina privada con vistas al Montgó en Rincón Maretta">
-          <p>Piscina Privada & Vistas</p>
-        </div>
-
-        <div class="foto-card">
-          <img src="img/jardin.jpg" alt="Jardín amplio en Rincón Maretta Jávea">
-          <p>Jardín y Terrazas</p>
-        </div>
-
-        <div class="foto-card">
-          <img src="img/habitacion-principal.jpg" alt="Dormitorio principal con baño en suite">
-          <p>Dormitorio Principal</p>
-        </div>
-
-      </div>
-    </section>
-    /* Galería de fotos */
-.galeria-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.foto-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.foto-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
-.foto-card p {
-  padding: 1rem;
-  font-weight: 600;
-  color: #0f172a;
-  text-align: center;
 }
